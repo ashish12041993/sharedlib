@@ -1,0 +1,28 @@
+def call(Map config = [:]) {
+    pipeline {
+        agent any
+
+        stages {
+            stage('Build') {
+                steps {
+                    echo "Building project: ${config.project ?: 'default'}"
+                    sh config.buildCmd ?: 'mvn clean package'
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    echo "Running tests..."
+                    sh config.testCmd ?: 'mvn test'
+                }
+            }
+
+            stage('Deploy') {
+                steps {
+                    echo "Deploying to ${config.env ?: 'dev'}"
+                    sh config.deployCmd ?: "./deploy.sh ${config.env ?: 'dev'}"
+                }
+            }
+        }
+    }
+}
