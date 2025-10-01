@@ -1,0 +1,3 @@
+jenkins-shared-library/
+├── vars/
+│   └── myPipeline.groovy
