@@ -1,0 +1,8 @@
+@Library('jenkins-shared-library') _
+myPipeline(
+    project: 'my-app',
+    env: 'staging',
+    buildCmd: 'mvn clean package -DskipTests',
+    testCmd: 'mvn verify',
+    deployCmd: './deploy.sh staging'
+)
